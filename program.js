@@ -1,7 +1,7 @@
 let currentTab = "all";
 
 const tabActive = ["bg-navy", "border-navy", "text-white"];
-const tabInactive = ["bg-transparent", "text-slate-700", "border-state-200", "text-black"];
+const tabInactive = ["bg-transparent", "text-slate-700", "border-slate-200", "text-black"];
 
 
 const allContainer = document.getElementById("all-container");
@@ -33,7 +33,7 @@ function switchTab(tab) {
 
     emptyState.classList.add("hidden");
 
-    if (tab == "all") {
+    if (tab === "all") {
         allContainer.classList.remove("hidden");
         if (allContainer.children.length < 1) {
             emptyState.classList.remove("hidden");
@@ -78,17 +78,17 @@ document.getElementById("jobs-container").addEventListener("click", function (ev
     if (clickedElement.classList.contains("interview")) {
         status.innerText = "Interviewed";
         interviewContainer.appendChild(card);
-        updateStat();
+        // updateStat();
     }
     else if (clickedElement.classList.contains("rejected")) {
         status.innerText = "Rejected"
         rejectedContainer.appendChild(card);
-        updateStat();
+        // updateStat();
     }
     else if (clickedElement.classList.contains("delete")) {
         parent.removeChild(card);
-        updateStat();
     }
+    updateStat();
 });
 updateStat();
 function updateStat() {
@@ -103,5 +103,13 @@ function updateStat() {
     rejectStat.innerText = jobsCount.rejected;
 
     availJobsStat.innerText = jobsCount[currentTab];
+
+    if(jobsCount[currentTab] < 1)
+    {
+        emptyState.classList.remove("hidden");
+    }
+    else{
+        emptyState.classList.add("hidden");
+    }
 
 }
